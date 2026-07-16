@@ -4,20 +4,20 @@ html[data-codex-ip-theme="on"] {
   --color-text-accent: var(--ip-accent) !important;
   --color-accent-red: var(--ip-accent) !important;
   --color-background-accent: color-mix(in srgb, var(--ip-accent) 11%, white) !important;
-  --color-background-accent-hover: color-mix(in srgb, var(--ip-accent) 16%, white) !important;
+  --color-background-accent-hover: color-mix(in srgb, var(--ip-accent) 17%, white) !important;
   --color-token-main-surface-primary: var(--ip-background) !important;
   --color-token-side-bar-background: var(--ip-sidebar) !important;
-  --color-token-input-background: #ffffff !important;
+  --color-token-input-background: #fff !important;
   --color-token-foreground: var(--ip-foreground) !important;
   --color-token-text-primary: var(--ip-foreground) !important;
   --color-token-text-secondary: color-mix(in srgb, var(--ip-foreground) 68%, transparent) !important;
   --color-token-text-tertiary: color-mix(in srgb, var(--ip-foreground) 48%, transparent) !important;
-  --color-token-border-default: color-mix(in srgb, var(--ip-foreground) 13%, transparent) !important;
-  --color-token-list-hover-background: color-mix(in srgb, var(--ip-accent) 7.5%, transparent) !important;
-  --color-token-list-active-selection-background: color-mix(in srgb, var(--ip-accent) 11%, transparent) !important;
+  --color-token-border-default: color-mix(in srgb, var(--ip-foreground) 14%, transparent) !important;
+  --color-token-list-hover-background: color-mix(in srgb, var(--ip-accent) 8%, transparent) !important;
+  --color-token-list-active-selection-background: color-mix(in srgb, var(--ip-accent) 12%, transparent) !important;
   --color-token-button-background: var(--ip-foreground) !important;
-  --color-token-button-foreground: #ffffff !important;
-  --radius-token-row: 10px !important;
+  --color-token-button-foreground: #fff !important;
+  --radius-token-row: 9px !important;
 }
 
 html[data-codex-ip-theme="on"],
@@ -36,33 +36,33 @@ html[data-codex-ip-theme="on"] main.main-surface {
 
 html[data-codex-ip-theme="on"] main.main-surface {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--ip-foreground) 2.5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--ip-foreground) 2.5%, transparent) 1px, transparent 1px),
-    radial-gradient(circle at 86% 13%, color-mix(in srgb, var(--ip-accent) 7%, transparent), transparent 24%) !important;
-  background-size: 28px 28px, 28px 28px, auto !important;
+    linear-gradient(color-mix(in srgb, var(--ip-foreground) 2.6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ip-foreground) 2.6%, transparent) 1px, transparent 1px) !important;
+  background-size: 28px 28px !important;
 }
 
 html[data-codex-ip-theme="on"] aside.app-shell-left-panel {
-  background: linear-gradient(180deg, rgba(255,255,255,.72), color-mix(in srgb, var(--ip-sidebar) 96%, transparent)), var(--ip-sidebar) !important;
-  border-right: 1px solid color-mix(in srgb, var(--ip-foreground) 13%, transparent) !important;
-  box-shadow: 12px 0 30px color-mix(in srgb, var(--ip-foreground) 3.5%, transparent) !important;
+  background:
+    linear-gradient(90deg, var(--ip-accent) 0 3px, transparent 3px),
+    linear-gradient(180deg, rgba(255,255,255,.9), color-mix(in srgb, var(--ip-sidebar) 96%, transparent)) !important;
+  border-right: 1px solid #d7d7d2 !important;
+  box-shadow: 12px 0 34px rgba(0,0,0,.045) !important;
 }
 
 html[data-codex-ip-theme="on"] aside.app-shell-left-panel nav::after {
-  content: "";
+  content: "∞";
   position: absolute;
-  right: 0;
-  top: 74px;
-  width: 2px;
-  height: 42px;
-  background: var(--ip-accent);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--ip-accent) 50%, transparent);
+  right: 10px;
+  top: 75px;
+  color: var(--ip-accent);
+  font: 700 18px/1 Georgia, serif;
+  text-shadow: 0 0 9px color-mix(in srgb, var(--ip-accent) 75%, transparent);
   pointer-events: none;
 }
 
 html[data-codex-ip-theme="on"] header.app-header-tint {
-  background: color-mix(in srgb, var(--ip-background) 80%, transparent) !important;
-  border-bottom: 1px solid color-mix(in srgb, var(--ip-foreground) 9%, transparent) !important;
+  background: color-mix(in srgb, var(--ip-background) 84%, transparent) !important;
+  border-bottom: 1px solid rgba(0,0,0,.08) !important;
   backdrop-filter: blur(18px) saturate(115%) !important;
 }
 
@@ -73,21 +73,220 @@ html[data-codex-ip-theme="on"] header.app-header-tint::after {
   right: 0;
   bottom: -1px;
   height: 1px;
-  background: linear-gradient(90deg, var(--ip-accent), transparent 60%);
+  background: linear-gradient(90deg, var(--ip-accent), transparent 62%);
+}
+
+/* Real Codex home: the supplied artwork becomes a live Hero around native controls. */
+html[data-codex-ip-theme="on"] .ip-theme-home {
+  --thread-content-max-width: 1040px;
+  overflow-x: hidden !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child {
+  min-height: 100% !important;
+  padding: 24px 28px 16px !important;
+  gap: 12px !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child {
+  flex: 0 0 650px !important;
+  min-height: 650px !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child > div:first-child {
+  position: relative !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 650px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(15,15,15,.92) !important;
+  border-radius: 24px !important;
+  background-color: #f3f4f5 !important;
+  background-image:
+    linear-gradient(90deg, rgba(249,249,249,.98) 0%, rgba(249,249,249,.91) 30%, rgba(249,249,249,.17) 57%, rgba(249,249,249,.02) 100%),
+    var(--ip-hero-image) !important;
+  background-repeat: no-repeat !important;
+  background-position: left center, right var(--ip-hero-position) !important;
+  background-size: 100% 100%, auto 100% !important;
+  box-shadow: 0 22px 54px rgba(0,0,0,.1), inset 0 0 0 5px rgba(255,255,255,.52) !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child > div:first-child::before {
+  content: "GGOO / CODEX WORKSTATION                                      01";
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,.14);
+  background: rgba(255,255,255,.72);
+  color: rgba(0,0,0,.58);
+  font: 700 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .14em;
+  white-space: pre;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home [data-testid="home-icon"],
+html[data-codex-ip-theme="on"] .ip-theme-home [data-feature="game-source"] {
+  visibility: hidden !important;
+}
+
+.ip-home-hero-copy {
+  position: absolute;
+  z-index: 4;
+  left: clamp(34px, 4.5vw, 72px);
+  top: 92px;
+  width: min(43%, 500px);
+  color: var(--ip-foreground);
+  pointer-events: none;
+  user-select: none;
+}
+
+.ip-home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 0 11px;
+  border: 1px solid rgba(0,0,0,.82);
+  border-left: 4px solid var(--ip-accent);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  font: 700 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .14em;
+}
+
+.ip-home-title {
+  margin-top: 24px;
+  font-size: clamp(34px, 3.2vw, 53px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+
+.ip-home-title::after {
+  content: "∞";
+  display: inline-block;
+  margin-left: .18em;
+  color: var(--ip-accent);
+  font-family: Georgia, serif;
+  font-weight: 700;
+  text-shadow: 0 0 11px color-mix(in srgb, var(--ip-accent) 70%, transparent);
+  transform: translateY(-.04em);
+}
+
+.ip-home-subtitle {
+  margin-top: 15px;
+  max-width: 410px;
+  color: rgba(0,0,0,.66);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+
+.ip-home-signal {
+  margin-top: 24px;
+  color: var(--ip-accent);
+  font: 800 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .18em;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] {
+  position: absolute !important;
+  z-index: 6 !important;
+  left: 28px !important;
+  right: 28px !important;
+  bottom: 26px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] > div > div {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] button {
+  position: relative !important;
+  min-width: 0 !important;
+  height: 134px !important;
+  padding: 45px 18px 16px !important;
+  border: 1px solid rgba(0,0,0,.78) !important;
+  border-radius: 16px !important;
+  background: rgba(255,255,255,.9) !important;
+  box-shadow: 0 10px 0 rgba(0,0,0,.10), 0 18px 30px rgba(0,0,0,.09) !important;
+  color: var(--ip-foreground) !important;
+  font-weight: 720 !important;
+  text-align: left !important;
+  backdrop-filter: blur(14px) !important;
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] button::after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  right: 17px;
+  top: 35px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ip-accent) 0 34%, rgba(0,0,0,.16) 34% 100%);
+  pointer-events: none;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] button:hover {
+  transform: translateY(-4px) !important;
+  border-color: var(--ip-accent) !important;
+  box-shadow: 0 10px 0 color-mix(in srgb, var(--ip-accent) 16%, transparent), 0 22px 38px rgba(0,0,0,.12) !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] button svg {
+  color: var(--ip-accent) !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:nth-child(2) {
+  flex: 0 0 188px !important;
+  min-height: 188px !important;
+  justify-content: start !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:nth-child(2) > div:first-child {
+  margin-top: 0 !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:nth-child(2) > div:last-child {
+  padding: 0 0 2px !important;
+}
+
+html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:nth-child(2) > div:last-child > div {
+  width: 100% !important;
+  max-width: 1040px !important;
+  padding-inline: 0 !important;
 }
 
 html[data-codex-ip-theme="on"] .composer-surface-chrome {
-  border: 1px solid color-mix(in srgb, var(--ip-foreground) 82%, transparent) !important;
+  border: 1px solid rgba(0,0,0,.86) !important;
   border-radius: 18px !important;
-  background: rgba(255,255,255,.94) !important;
-  box-shadow: 0 14px 36px color-mix(in srgb, var(--ip-foreground) 9%, transparent) !important;
+  background: rgba(255,255,255,.96) !important;
+  box-shadow: 0 9px 0 rgba(0,0,0,.075), 0 20px 42px rgba(0,0,0,.09) !important;
   overflow: visible !important;
   transition: border-color 160ms ease, box-shadow 160ms ease !important;
 }
 
 html[data-codex-ip-theme="on"] .composer-surface-chrome:focus-within {
   border-color: var(--ip-accent) !important;
-  box-shadow: 0 14px 38px color-mix(in srgb, var(--ip-foreground) 10%, transparent), 0 0 0 3px color-mix(in srgb, var(--ip-accent) 10%, transparent) !important;
+  box-shadow: 0 9px 0 color-mix(in srgb, var(--ip-accent) 15%, transparent), 0 20px 42px rgba(0,0,0,.1), 0 0 0 3px color-mix(in srgb, var(--ip-accent) 11%, transparent) !important;
 }
 
 html[data-codex-ip-theme="on"] .composer-surface-chrome::after {
@@ -96,18 +295,26 @@ html[data-codex-ip-theme="on"] .composer-surface-chrome::after {
   top: 7px;
   right: 12px;
   color: var(--ip-accent);
-  font-family: Georgia, serif !important;
-  font-size: 17px;
-  line-height: 1;
+  font: 700 18px/1 Georgia, serif;
   text-shadow: 0 0 8px color-mix(in srgb, var(--ip-accent) 75%, transparent);
   pointer-events: none;
 }
 
-html[data-codex-ip-theme="on"] .ProseMirror { caret-color: var(--ip-accent) !important; }
-html[data-codex-ip-theme="on"] a { color: var(--ip-accent) !important; }
-html[data-codex-ip-theme="on"] button:focus-visible,
-html[data-codex-ip-theme="on"] [role="button"]:focus-visible { outline-color: var(--ip-accent) !important; }
-html[data-codex-ip-theme="on"] ::selection { background: color-mix(in srgb, var(--ip-accent) 20%, transparent) !important; }
+/* Task routes use the same art as a restrained wallpaper. */
+html[data-codex-ip-theme="on"] main.ip-theme-task-shell::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 46px 0 0 var(--ip-sidebar-width, 0px);
+  background-image: linear-gradient(90deg, var(--ip-background) 25%, rgba(252,252,250,.86) 55%, rgba(252,252,250,.25)), var(--ip-hero-image);
+  background-repeat: no-repeat;
+  background-position: center, right center;
+  background-size: cover, auto 100%;
+  opacity: var(--ip-task-wallpaper-opacity);
+  pointer-events: none;
+}
+
+html[data-codex-ip-theme="on"] main.ip-theme-task-shell > * { position: relative; z-index: 1; }
 
 #codex-ip-runtime-layer {
   position: fixed;
@@ -118,16 +325,17 @@ html[data-codex-ip-theme="on"] ::selection { background: color-mix(in srgb, var(
 
 #codex-ip-runtime-layer .ip-mode-badge {
   position: absolute;
-  top: 51px;
-  left: calc(var(--ip-sidebar-width, 275px) + 22px);
+  top: 54px;
+  left: calc(var(--ip-sidebar-width, 275px) + 38px);
   padding: 5px 10px 5px 30px;
-  border: 1px solid color-mix(in srgb, var(--ip-foreground) 14%, transparent);
+  border: 1px solid rgba(0,0,0,.16);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--ip-background) 88%, transparent);
-  box-shadow: 0 8px 22px color-mix(in srgb, var(--ip-foreground) 6%, transparent);
-  color: color-mix(in srgb, var(--ip-foreground) 62%, transparent);
-  font-size: 11px;
-  letter-spacing: .08em;
+  background: rgba(255,255,255,.83);
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+  color: rgba(0,0,0,.62);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
   backdrop-filter: blur(12px);
 }
 
@@ -137,51 +345,84 @@ html[data-codex-ip-theme="on"] ::selection { background: color-mix(in srgb, var(
   left: 8px;
   top: 3px;
   color: var(--ip-accent);
-  font-family: Georgia, serif;
-  font-size: 18px;
+  font: 700 18px/1 Georgia, serif;
   text-shadow: 0 0 8px color-mix(in srgb, var(--ip-accent) 80%, transparent);
 }
 
 #codex-ip-runtime-layer .ip-system-note {
   position: absolute;
-  top: 55px;
-  right: 28px;
-  color: color-mix(in srgb, var(--ip-foreground) 40%, transparent);
-  font-size: 10px;
+  top: 58px;
+  right: 38px;
+  color: rgba(0,0,0,.44);
+  font: 700 9px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
   letter-spacing: .16em;
 }
 
 .ip-sidebar-character {
   position: absolute;
-  right: 5px;
-  bottom: 56px;
+  right: 8px;
+  bottom: 58px;
   z-index: 5;
   width: var(--ip-sidebar-image-width);
   height: auto;
   opacity: var(--ip-sidebar-image-opacity);
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.12));
   pointer-events: none;
   user-select: none;
 }
 
 .ip-composer-character {
   position: absolute;
-  right: 28px;
-  top: calc(-1 * var(--ip-composer-image-width) * .76);
+  right: 38px;
+  top: calc(-1 * var(--ip-composer-image-width) * .70);
   z-index: -1;
   width: var(--ip-composer-image-width);
   height: auto;
   opacity: var(--ip-composer-image-opacity);
+  filter: drop-shadow(0 8px 8px rgba(0,0,0,.12));
   pointer-events: none;
   user-select: none;
 }
 
+html[data-codex-ip-theme="on"] .ProseMirror { caret-color: var(--ip-accent) !important; }
+html[data-codex-ip-theme="on"] a { color: var(--ip-accent) !important; }
+html[data-codex-ip-theme="on"] button:focus-visible,
+html[data-codex-ip-theme="on"] [role="button"]:focus-visible { outline-color: var(--ip-accent) !important; }
+html[data-codex-ip-theme="on"] ::selection { background: color-mix(in srgb, var(--ip-accent) 20%, transparent) !important; }
+
 html[data-codex-ip-theme="off"] #codex-ip-runtime-layer,
 html[data-codex-ip-theme="off"] .ip-sidebar-character,
-html[data-codex-ip-theme="off"] .ip-composer-character { display: none !important; }
+html[data-codex-ip-theme="off"] .ip-composer-character,
+html[data-codex-ip-theme="off"] .ip-home-hero-copy { display: none !important; }
+
+@media (max-width: 1120px) {
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child { padding-inline: 18px !important; }
+  html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] { left: 18px !important; right: 18px !important; }
+  html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] button { padding-inline: 13px !important; }
+  .ip-home-hero-copy { left: 38px; width: 46%; }
+}
 
 @media (max-width: 900px) {
   #codex-ip-runtime-layer .ip-mode-badge,
   #codex-ip-runtime-layer .ip-system-note,
   .ip-sidebar-character,
   .ip-composer-character { display: none !important; }
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child,
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child > div:first-child { height: 610px !important; min-height: 610px !important; flex-basis: 610px !important; }
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child > div:first-child {
+    background-image: linear-gradient(90deg, rgba(249,249,249,.96), rgba(249,249,249,.64) 55%, rgba(249,249,249,.08)), var(--ip-hero-image) !important;
+  }
+  html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] > div > div { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] button { height: 100px !important; padding-top: 38px !important; }
+  .ip-home-hero-copy { top: 76px; width: 62%; }
+}
+
+@media (max-width: 650px) {
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child { padding-inline: 10px !important; }
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child,
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child > div:first-child { height: 650px !important; min-height: 650px !important; flex-basis: 650px !important; }
+  html[data-codex-ip-theme="on"] .ip-theme-home > div:first-child > div:first-child > div:first-child { border-radius: 18px !important; background-size: 100% 100%, auto 74% !important; background-position: left, right top !important; }
+  .ip-home-hero-copy { left: 24px; top: 70px; width: calc(100% - 48px); }
+  .ip-home-title { font-size: 36px; }
+  html[data-codex-ip-theme="on"] .ip-theme-home [class*="home-suggestions"] { left: 12px !important; right: 12px !important; bottom: 16px !important; }
 }

@@ -46,6 +46,9 @@ function installTheme(themeCss, config, images) {
   root.style.setProperty("--ip-sidebar-image-opacity", String(config.sidebar_image_opacity ?? 0.28));
   root.style.setProperty("--ip-composer-image-width", `${config.composer_image_width || 88}px`);
   root.style.setProperty("--ip-composer-image-opacity", String(config.composer_image_opacity ?? 0.96));
+  root.style.setProperty("--ip-hero-image", `url(${JSON.stringify(images.hero)})`);
+  root.style.setProperty("--ip-hero-position", config.hero_position || "center");
+  root.style.setProperty("--ip-task-wallpaper-opacity", String(config.task_wallpaper_opacity ?? 0.14));
 
   let style = document.getElementById(STYLE_ID);
   if (!style) {
@@ -61,8 +64,9 @@ function installTheme(themeCss, config, images) {
     layer.id = LAYER_ID;
     document.body.appendChild(layer);
   }
-  layer.innerHTML = `<div class="ip-mode-badge"></div><div class="ip-system-note">THINK · BUILD · SHIP</div>`;
+  layer.innerHTML = `<div class="ip-mode-badge"></div><div class="ip-system-note"></div>`;
   layer.querySelector(".ip-mode-badge").textContent = config.badge_text || `${config.name || "IP"} 模式`;
+  layer.querySelector(".ip-system-note").textContent = config.status_text || "SYSTEM ONLINE · THINK · BUILD · SHIP";
 
   const decorate = () => {
     const aside = document.querySelector("aside.app-shell-left-panel");
@@ -89,6 +93,43 @@ function installTheme(themeCss, config, images) {
       image.setAttribute("aria-hidden", "true");
       composer.appendChild(image);
     }
+
+    const homeMarker = document.querySelector('[data-testid="home-icon"]') || document.querySelector('[data-feature="game-source"]');
+    const homeMain = homeMarker?.closest('[role="main"]') || null;
+    const shell = document.querySelector("main.main-surface");
+    document.querySelectorAll(".ip-theme-home").forEach((element) => {
+      if (element !== homeMain) element.classList.remove("ip-theme-home");
+    });
+    document.querySelectorAll(".ip-theme-home-shell, .ip-theme-task-shell").forEach((element) => {
+      if (element !== shell) element.classList.remove("ip-theme-home-shell", "ip-theme-task-shell");
+    });
+    if (shell) {
+      shell.classList.toggle("ip-theme-home-shell", Boolean(homeMain));
+      shell.classList.toggle("ip-theme-task-shell", !homeMain);
+    }
+    if (homeMain) {
+      homeMain.classList.add("ip-theme-home");
+      const heroFrame = homeMain.querySelector(':scope > div:first-child > div:first-child > div:first-child');
+      if (heroFrame && !heroFrame.querySelector(":scope > .ip-home-hero-copy")) {
+        const copy = document.createElement("div");
+        copy.className = "ip-home-hero-copy";
+        copy.setAttribute("aria-hidden", "true");
+        const eyebrow = document.createElement("div");
+        eyebrow.className = "ip-home-eyebrow";
+        eyebrow.textContent = config.brand_subtitle || "CODEX IP THEME · GGOO LAB";
+        const title = document.createElement("div");
+        title.className = "ip-home-title";
+        title.textContent = config.hero_title || "我们该构建什么？";
+        const subtitle = document.createElement("div");
+        subtitle.className = "ip-home-subtitle";
+        subtitle.textContent = config.hero_subtitle || "把复杂问题拆开，用代码重新连接。";
+        const signal = document.createElement("div");
+        signal.className = "ip-home-signal";
+        signal.textContent = config.hero_signal || "∞ LASER EYES ONLINE";
+        copy.append(eyebrow, title, subtitle, signal);
+        heroFrame.appendChild(copy);
+      }
+    }
   };
 
   let scheduled = false;
@@ -111,20 +152,25 @@ function installTheme(themeCss, config, images) {
     root.dataset.codexIpTheme = root.dataset.codexIpTheme === "off" ? "on" : "off";
   };
   window.addEventListener("keydown", toggle, true);
+  const safetyTimer = window.setInterval(schedule, 1200);
   decorate();
 
   globalThis.__codexIpThemeCleanup = () => {
     observer.disconnect();
     resizeObserver.disconnect();
+    window.clearInterval(safetyTimer);
     window.removeEventListener("keydown", toggle, true);
     document.getElementById(STYLE_ID)?.remove();
     document.getElementById(LAYER_ID)?.remove();
-    document.querySelectorAll(".ip-sidebar-character, .ip-composer-character").forEach((element) => element.remove());
+    document.querySelectorAll(".ip-sidebar-character, .ip-composer-character, .ip-home-hero-copy").forEach((element) => element.remove());
+    document.querySelectorAll(".ip-theme-home").forEach((element) => element.classList.remove("ip-theme-home"));
+    document.querySelectorAll(".ip-theme-home-shell, .ip-theme-task-shell").forEach((element) => element.classList.remove("ip-theme-home-shell", "ip-theme-task-shell"));
     delete root.dataset.codexIpTheme;
     for (const name of [
       "--ip-accent", "--ip-background", "--ip-sidebar", "--ip-foreground",
       "--ip-sidebar-width", "--ip-sidebar-image-width", "--ip-sidebar-image-opacity",
       "--ip-composer-image-width", "--ip-composer-image-opacity",
+      "--ip-hero-image", "--ip-hero-position", "--ip-task-wallpaper-opacity",
     ]) root.style.removeProperty(name);
     delete globalThis.__codexIpThemeCleanup;
   };
@@ -141,7 +187,9 @@ function removeTheme() {
   globalThis.__codexIpThemeCleanup?.();
   document.getElementById("codex-ip-runtime-theme")?.remove();
   document.getElementById("codex-ip-runtime-layer")?.remove();
-  document.querySelectorAll(".ip-sidebar-character, .ip-composer-character").forEach((element) => element.remove());
+  document.querySelectorAll(".ip-sidebar-character, .ip-composer-character, .ip-home-hero-copy").forEach((element) => element.remove());
+  document.querySelectorAll(".ip-theme-home").forEach((element) => element.classList.remove("ip-theme-home"));
+  document.querySelectorAll(".ip-theme-home-shell, .ip-theme-task-shell").forEach((element) => element.classList.remove("ip-theme-home-shell", "ip-theme-task-shell"));
   delete document.documentElement.dataset.codexIpTheme;
   return { active: false };
 }
@@ -157,25 +205,27 @@ async function loadPayload() {
   for (const key of ["accent", "background", "sidebar", "foreground"]) {
     if (!colorPattern.test(config[key] || "")) throw new Error(`Invalid six-digit hex color: ${key}`);
   }
-  for (const key of ["sidebar_image", "composer_image"]) {
+  for (const key of ["sidebar_image", "composer_image", "hero_image"]) {
     if (typeof config[key] !== "string" || !/^assets\/[A-Za-z0-9._-]+$/.test(config[key])) {
       throw new Error(`Theme image must stay inside assets/: ${key}`);
     }
   }
   const sidebarPath = join(projectRoot, config.sidebar_image);
   const composerPath = join(projectRoot, config.composer_image);
-  const [css, sidebar, composer] = await Promise.all([
+  const heroPath = join(projectRoot, config.hero_image);
+  const [css, sidebar, composer, hero] = await Promise.all([
     readFile(cssPath, "utf8"),
     readFile(sidebarPath),
     readFile(composerPath),
+    readFile(heroPath),
   ]);
   const maxImageBytes = 16 * 1024 * 1024;
-  if (!sidebar.length || sidebar.length > maxImageBytes || !composer.length || composer.length > maxImageBytes) {
+  if (!sidebar.length || sidebar.length > maxImageBytes || !composer.length || composer.length > maxImageBytes || !hero.length || hero.length > maxImageBytes) {
     throw new Error("Theme images must be non-empty and no larger than 16 MB each");
   }
-  const images = { sidebar: dataUrl(sidebar, sidebarPath), composer: dataUrl(composer, composerPath) };
+  const images = { sidebar: dataUrl(sidebar, sidebarPath), composer: dataUrl(composer, composerPath), hero: dataUrl(hero, heroPath) };
   const digest = createHash("sha256")
-    .update(css).update(JSON.stringify(config)).update(sidebar).update(composer).digest("hex");
+    .update(css).update(JSON.stringify(config)).update(sidebar).update(composer).update(hero).digest("hex");
   return {
     digest,
     expression: `(${installTheme.toString()})(${JSON.stringify(css)}, ${JSON.stringify(config)}, ${JSON.stringify(images)})`,

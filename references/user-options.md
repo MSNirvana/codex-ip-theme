@@ -16,13 +16,16 @@
 | Sidebar | `#f0f0ed` | Left navigation surface |
 | Foreground | `#111111` | Main text and borders |
 | Placement | Both | Sidebar watermark, composer character, or both |
+| Hero image | Prepared character | Optional rectangular scene; its background is preserved |
+| Hero copy | Built-in concise copy | Title, subtitle, brand line, system status, and signal |
+| Task wallpaper opacity | `0.14` | Recommended range `0.08`–`0.18`; maximum `0.5` |
 | Crop | Automatic/agent-selected | Use `x,y,width,height` for contact sheets |
 | Background removal | Edge-connected | Choose `none` for existing transparency |
 | Output folder | Workspace theme slug | Must not overwrite unrelated files |
 
 ## Dynamic image behavior
 
-The generated injector hashes `theme/config.json`, `theme/theme.css`, and both image files every 1.5 seconds. Changed bytes trigger reinjection into connected Codex renderer pages. Updating an image does not require repacking the app.
+The generated injector hashes `theme/config.json`, `theme/theme.css`, and all three image files every 1.5 seconds. Changed bytes trigger reinjection into connected Codex renderer pages. Updating an image does not require repacking the app.
 
 Use `scripts/update_theme_image.py` from this skill to replace an image while preserving the theme project and configuration.
 

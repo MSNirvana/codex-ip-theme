@@ -12,7 +12,9 @@ Windows:
 
 Common controls:
 - Press Command/Ctrl+Shift+L to toggle the theme temporarily.
-- Changes to theme/config.json, theme/theme.css, or assets are detected automatically.
+- Changes to theme/config.json, theme/theme.css, character art, or Hero art are detected automatically.
+- theme/config.json controls the home title/subtitle, brand copy, Hero alignment, and task-wallpaper opacity.
+- Suggestion cards, project selection, and the composer inside the Hero remain real Codex controls.
 - The debugging endpoint is bound to 127.0.0.1. Never expose it on 0.0.0.0.
 - The theme does not modify the Codex application bundle.
 

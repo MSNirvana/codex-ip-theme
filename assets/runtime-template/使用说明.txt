@@ -12,7 +12,9 @@ Windows：
 
 通用：
 - Command/Ctrl+Shift+L 临时开关主题。
-- 修改 theme/config.json、theme/theme.css 或 assets 中的图片后，运行中的注入器会自动更新。
+- 修改 theme/config.json、theme/theme.css 或 assets 中的角色/Hero 图片后，运行中的注入器会自动更新。
+- theme/config.json 可调整首页标题、副标题、品牌文案、Hero 对齐和任务页壁纸透明度。
+- 首页 Hero 内的建议卡、项目选择器和输入框都是真实 Codex 控件，可正常点击。
 - 调试接口只监听 127.0.0.1，不要改成 0.0.0.0。
 - 本主题不修改 Codex 安装包。
 

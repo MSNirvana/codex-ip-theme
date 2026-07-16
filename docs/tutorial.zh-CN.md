@@ -30,6 +30,7 @@ git clone https://github.com/MSNirvana/codex-ip-theme.git "$HOME\.codex\skills\c
 - 白底、灰底或近似纯色背景最适合自动抠图。
 - 联系表/设定图可以使用，但需要让 Codex 选择并裁切具体动作。
 - 坐着工作、使用电脑的动作适合输入框；站立动作适合侧栏。
+- 另有横版场景图时，把它作为 Hero。推荐 16:9 或接近 16:9，并在一侧保留可放标题的安静区域。
 
 不要公开上传没有使用授权的肖像、Logo 或商业角色。
 
@@ -38,7 +39,7 @@ git clone https://github.com/MSNirvana/codex-ip-theme.git "$HOME\.codex\skills\c
 上传图片后输入：
 
 ```text
-使用 $codex-ip-theme，把这张图片制作成 Mac 和 Windows 都能使用的 Codex 主题，自动抠白底。主题名叫“我的 IP”，强调色使用 #ff2823。
+使用 $codex-ip-theme。第一张是角色图，请自动抠白底；第二张横版图作为首页 Hero，保留完整背景。制作成 Mac 和 Windows 都能使用的旗舰主题，主题名叫“我的 IP”，强调色使用 #ff2823。
 ```
 
 未指定的选项会使用默认值：
@@ -47,6 +48,7 @@ git clone https://github.com/MSNirvana/codex-ip-theme.git "$HOME\.codex\skills\c
 - 侧栏：`#f0f0ed`
 - 前景文字：`#111111`
 - 图片位置：侧栏和输入框两处
+- 首页：原生建议卡 + 横版 Hero；没有场景图时复用透明角色
 - 抠图：边缘连通背景移除
 
 生成完成后先查看 `ip-transparency-preview.png`。棋盘格代表透明区域。
@@ -92,6 +94,7 @@ $env:CODEX_APP="C:\完整路径\ChatGPT.exe"
 
 - 主题样式和装饰层存在。
 - 侧栏、输入框和两张角色图可见。
+- 首页 Hero、2–6 张原生建议卡和真实项目选择器可见。
 - 装饰层不会拦截鼠标。
 - 页面没有横向溢出。
 
@@ -114,7 +117,7 @@ $env:CODEX_APP="C:\完整路径\ChatGPT.exe"
   --placement sidebar
 ```
 
-`--placement` 可选 `sidebar`、`composer` 或 `both`。注入器运行时会自动检测并更新。
+`--placement` 可选 `sidebar`、`composer`、`both`、`hero` 或 `all`。Hero 会保留完整矩形背景，角色位置才执行抠图。注入器运行时会自动检测并更新。
 
 ## 7. 调整抠图
 
@@ -134,6 +137,10 @@ $env:CODEX_APP="C:\完整路径\ChatGPT.exe"
 - `foreground`：文字和边框
 - `sidebar_image_width` / `composer_image_width`：角色宽度
 - `sidebar_image_opacity` / `composer_image_opacity`：透明度
+- `hero_title` / `hero_subtitle`：首页标题和副标题
+- `brand_subtitle` / `status_text` / `hero_signal`：品牌与系统文案
+- `hero_position`：Hero 对齐位置
+- `task_wallpaper_opacity`：任务页壁纸透明度，建议 `0.08`–`0.18`
 
 编辑 `theme/theme.css` 可以继续改变圆角、阴影、网格、输入框和侧栏样式。文件保存后会自动重新注入。
 

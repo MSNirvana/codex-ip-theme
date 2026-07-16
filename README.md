@@ -4,7 +4,7 @@
 
 Turn an uploaded mascot, character, logo, or brand image into a reusable runtime theme for the Codex desktop app on macOS and Windows.
 
-Codex IP Theme removes simple white or solid backgrounds, generates transparent PNG assets, scaffolds platform launchers, and injects the result through a loopback-only Chrome DevTools Protocol connection. It does **not** modify `app.asar`, the official application bundle, signatures, authentication, API keys, or model-provider settings.
+Codex IP Theme removes simple white or solid backgrounds, generates transparent PNG assets, turns a landscape scene into a full native-home Hero, restyles the real suggestion cards, and scaffolds platform launchers. It injects through a loopback-only Chrome DevTools Protocol connection and does **not** modify `app.asar`, the official application bundle, signatures, authentication, API keys, or model-provider settings.
 
 > Community project. Not an official OpenAI product.
 
@@ -12,6 +12,9 @@ Codex IP Theme removes simple white or solid backgrounds, generates transparent 
 
 - One Skill for macOS and Windows.
 - One uploaded image is enough; colors and placement are optional.
+- An optional landscape scene enables the flagship Hero; without one, the prepared character is reused.
+- Native suggestion buttons, project selection, composer, sidebar, and navigation stay live—no fake full-window screenshot.
+- Task routes receive a restrained matching wallpaper while code and messages remain readable.
 - Edge-connected white-background removal preserves enclosed white body regions.
 - Separate sidebar and composer poses are supported.
 - Live image, CSS, and configuration hot reload.
@@ -53,7 +56,13 @@ Attach an image and prompt:
 Use $codex-ip-theme to turn the attached IP image into a Codex theme for macOS and Windows. Remove the white background automatically.
 ```
 
-Only the image is required. Optional inputs include theme name, accent/background/sidebar/text colors, crop coordinates, sidebar/composer placement, and output directory.
+Only the character image is required. Optional inputs include a landscape Hero scene, home title/subtitle, theme name, accent/background/sidebar/text colors, crop coordinates, placements, and output directory.
+
+Recommended flagship prompt:
+
+```text
+Use $codex-ip-theme. The first image is a character sheet: select and cut out one complete pose. Use the second landscape image as the home Hero and preserve its background. Generate a flagship macOS and Windows theme, then verify native home cards, project selection, the composer, and task-page readability.
+```
 
 The Skill generates a standalone theme project. Quit Codex completely, then run:
 
@@ -68,10 +77,10 @@ The Skill generates a standalone theme project. Quit Codex completely, then run:
 Upload a replacement image and ask:
 
 ```text
-Use $codex-ip-theme to replace the composer character in my generated theme with this image.
+Use $codex-ip-theme to replace the home Hero in my generated theme with this landscape image while preserving its background.
 ```
 
-While the injector is running, changes to image bytes, `theme/config.json`, or `theme/theme.css` are reapplied in about two seconds.
+Replace `sidebar`, `composer`, `both`, `hero`, or `all`. While the injector is running, changes to all image bytes, `theme/config.json`, or `theme/theme.css` are reapplied in about two seconds.
 
 ## Documentation
 

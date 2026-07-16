@@ -10,7 +10,7 @@ import shutil
 import stat
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 from prepare_image import create_checker_preview, parse_crop, prepare_image
 
@@ -32,15 +32,40 @@ def write_config(output: Path, arguments: argparse.Namespace) -> None:
         "foreground": arguments.foreground,
         "sidebar_image": "assets/ip-sidebar.png",
         "composer_image": "assets/ip-composer.png",
+        "hero_image": "assets/ip-hero.png",
         "sidebar_image_width": arguments.sidebar_width,
         "sidebar_image_opacity": arguments.sidebar_opacity,
         "composer_image_width": arguments.composer_width,
         "composer_image_opacity": arguments.composer_opacity,
+        "hero_title": arguments.hero_title,
+        "hero_subtitle": arguments.hero_subtitle,
+        "brand_subtitle": arguments.brand_subtitle,
+        "status_text": arguments.status_text,
+        "hero_signal": arguments.hero_signal,
+        "hero_position": arguments.hero_position,
+        "task_wallpaper_opacity": arguments.task_wallpaper_opacity,
         "toggle_shortcut": "Command/Ctrl+Shift+L",
     }
     config_path = output / "theme" / "config.json"
     config_path.parent.mkdir(parents=True, exist_ok=True)
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def prepare_hero(source: Path, destination: Path) -> dict[str, object]:
+    """Preserve a rectangular scene as Hero artwork; never remove its background."""
+    with Image.open(source) as opened:
+        image = ImageOps.exif_transpose(opened).convert("RGBA" if "A" in opened.getbands() else "RGB")
+        original_size = image.size
+        image.thumbnail((2400, 1600), Image.Resampling.LANCZOS)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        image.save(destination, format="PNG", optimize=True)
+    return {
+        "source": str(source),
+        "output": str(destination.resolve()),
+        "original_size": list(original_size),
+        "output_size": list(image.size),
+        "background_removed": False,
+    }
 
 
 def make_executable(path: Path) -> None:
@@ -54,6 +79,7 @@ def main() -> None:
     parser.add_argument("--image", required=True, type=Path, help="default image for both placements")
     parser.add_argument("--sidebar-image", type=Path)
     parser.add_argument("--composer-image", type=Path)
+    parser.add_argument("--hero-image", type=Path, help="rectangular full-scene artwork; background is preserved")
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--name", default="IP")
     parser.add_argument("--badge-text")
@@ -72,6 +98,13 @@ def main() -> None:
     parser.add_argument("--sidebar-opacity", type=float, default=0.28)
     parser.add_argument("--composer-width", type=int, default=88)
     parser.add_argument("--composer-opacity", type=float, default=0.96)
+    parser.add_argument("--hero-title", default="我们该构建什么？")
+    parser.add_argument("--hero-subtitle", default="把复杂问题拆开，用代码重新连接。")
+    parser.add_argument("--brand-subtitle", default="CODEX IP THEME · CREATIVE WORKSTATION")
+    parser.add_argument("--status-text", default="SYSTEM ONLINE · THINK · BUILD · SHIP")
+    parser.add_argument("--hero-signal", default="∞ LASER EYES ONLINE")
+    parser.add_argument("--hero-position", choices=("left", "center", "right"), default="center")
+    parser.add_argument("--task-wallpaper-opacity", type=float, default=0.14)
     parser.add_argument("--force", action="store_true")
     arguments = parser.parse_args()
 
@@ -81,6 +114,8 @@ def main() -> None:
             parser.error(f"--{key.replace('_', '-')} must be a six-digit hex color")
     if not 0 <= arguments.sidebar_opacity <= 1 or not 0 <= arguments.composer_opacity <= 1:
         parser.error("image opacity must be between 0 and 1")
+    if not 0 <= arguments.task_wallpaper_opacity <= 0.5:
+        parser.error("--task-wallpaper-opacity must be between 0 and 0.5")
     if not 24 <= arguments.sidebar_width <= 400 or not 24 <= arguments.composer_width <= 400:
         parser.error("image width must be between 24 and 400 pixels")
     if len(arguments.name.strip()) == 0 or len(arguments.name) > 80:
@@ -96,7 +131,11 @@ def main() -> None:
     default_crop = parse_crop(arguments.crop)
     sidebar_source = (arguments.sidebar_image or arguments.image).resolve()
     composer_source = (arguments.composer_image or arguments.image).resolve()
-    for source in {sidebar_source, composer_source}:
+    hero_source = arguments.hero_image.resolve() if arguments.hero_image else None
+    sources = {sidebar_source, composer_source}
+    if hero_source:
+        sources.add(hero_source)
+    for source in sources:
         if not source.is_file():
             parser.error(f"image not found: {source}")
         if source.stat().st_size > 50 * 1024 * 1024:
@@ -130,6 +169,8 @@ def main() -> None:
             square=False,
         )
 
+    hero_result = prepare_hero(hero_source or (output / "assets" / "ip-sidebar.png"), output / "assets" / "ip-hero.png")
+
     write_config(output, arguments)
     create_checker_preview(
         Image.open(output / "assets" / "ip-sidebar.png").convert("RGBA"),
@@ -151,6 +192,7 @@ def main() -> None:
                 "config": str(output / "theme" / "config.json"),
                 "sidebar": sidebar_result,
                 "composer": composer_result,
+                "hero": hero_result,
                 "mac_launcher": str(output / "启动主题.command"),
                 "windows_launcher": str(output / "启动主题.cmd"),
                 "transparency_preview": str(output / "ip-transparency-preview.png"),

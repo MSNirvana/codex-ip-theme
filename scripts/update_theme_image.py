@@ -9,13 +9,14 @@ import shutil
 from pathlib import Path
 
 from prepare_image import parse_crop, prepare_image
+from scaffold_theme import prepare_hero
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Update runtime theme IP artwork")
     parser.add_argument("--project", required=True, type=Path)
     parser.add_argument("--image", required=True, type=Path)
-    parser.add_argument("--placement", choices=("sidebar", "composer", "both"), default="both")
+    parser.add_argument("--placement", choices=("sidebar", "composer", "both", "hero", "all"), default="both")
     parser.add_argument("--crop", help="x,y,width,height")
     parser.add_argument("--remove-background", choices=("edge", "color", "none"), default="edge")
     parser.add_argument("--background", default="auto")
@@ -27,29 +28,37 @@ def main() -> None:
     if not (project / "theme" / "config.json").exists():
         parser.error(f"not a generated theme project: {project}")
 
-    temporary = project / "assets" / ".ip-update.png"
-    result = prepare_image(
-        arguments.image.resolve(),
-        temporary,
-        crop=parse_crop(arguments.crop),
-        method=arguments.remove_background,
-        background=arguments.background,
-        tolerance=arguments.tolerance,
-        feather=arguments.feather,
-    )
-
     destinations = []
-    if arguments.placement in ("sidebar", "both"):
+    results = {}
+    if arguments.placement in ("sidebar", "composer", "both", "all"):
+        temporary = project / "assets" / ".ip-update.png"
+        results["character"] = prepare_image(
+            arguments.image.resolve(),
+            temporary,
+            crop=parse_crop(arguments.crop),
+            method=arguments.remove_background,
+            background=arguments.background,
+            tolerance=arguments.tolerance,
+            feather=arguments.feather,
+        )
+    else:
+        temporary = None
+    if arguments.placement in ("sidebar", "both", "all"):
         destination = project / "assets" / "ip-sidebar.png"
         shutil.copy2(temporary, destination)
         destinations.append(str(destination))
-    if arguments.placement in ("composer", "both"):
+    if arguments.placement in ("composer", "both", "all"):
         destination = project / "assets" / "ip-composer.png"
         shutil.copy2(temporary, destination)
         destinations.append(str(destination))
-    temporary.unlink(missing_ok=True)
+    if temporary:
+        temporary.unlink(missing_ok=True)
+    if arguments.placement in ("hero", "all"):
+        destination = project / "assets" / "ip-hero.png"
+        results["hero"] = prepare_hero(arguments.image.resolve(), destination)
+        destinations.append(str(destination))
 
-    print(json.dumps({"updated": destinations, "image": result}, ensure_ascii=False, indent=2))
+    print(json.dumps({"updated": destinations, "images": results}, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

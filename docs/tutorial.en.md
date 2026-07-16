@@ -28,6 +28,8 @@ PNG, JPEG, and WebP are supported. Prefer artwork with a clear silhouette and a 
 
 Contact sheets are supported, but Codex should select crop coordinates for a specific pose. A working/seated pose usually fits the composer, while a standing pose fits the sidebar.
 
+When available, use a separate landscape scene as the Hero. A 16:9 image with a visually quiet side for title copy works best.
+
 Only use artwork you are authorized to use.
 
 ## 3. Generate a Theme
@@ -35,10 +37,10 @@ Only use artwork you are authorized to use.
 Attach an image and prompt:
 
 ```text
-Use $codex-ip-theme to create a macOS and Windows Codex theme from this image. Remove the white background, name it "My IP", and use #ff2823 as the accent.
+Use $codex-ip-theme. Remove the white background from the first character image. Preserve the second landscape image as the home Hero. Create a flagship macOS and Windows theme named "My IP" with #ff2823 as the accent.
 ```
 
-Default colors are `#fcfcfa` for the main background, `#f0f0ed` for the sidebar, and `#111111` for foreground text. The same image is used in both placements unless separate poses are supplied.
+Default colors are `#fcfcfa` for the main background, `#f0f0ed` for the sidebar, and `#111111` for foreground text. The same prepared character is used in both placements unless separate poses are supplied. The native home suggestions are arranged over the Hero; without a separate scene, the transparent character is reused.
 
 Inspect `ip-transparency-preview.png` before launching. The checkerboard represents transparency.
 
@@ -65,7 +67,7 @@ The launcher checks standard install locations and then uses `Get-AppxPackage Op
 
 Run `验证主题.command` on macOS or `验证主题.cmd` on Windows.
 
-Verification requires the theme style, non-interactive decorative layer, native sidebar, native composer, both IP images, and no horizontal overflow. A successful run writes `theme-verification.png`.
+Verification requires the theme style, non-interactive decorative layer, native sidebar, native composer, both character placements, and no horizontal overflow. On the home route it also requires a visible Hero, 2–6 native suggestion buttons, and the real project selector. A successful run writes `theme-verification.png`.
 
 ## 6. Replace an Image Dynamically
 
@@ -84,7 +86,7 @@ CLI equivalent:
   --placement sidebar
 ```
 
-Placement can be `sidebar`, `composer`, or `both`. A running injector reapplies changed image bytes automatically.
+Placement can be `sidebar`, `composer`, `both`, `hero`, or `all`. Hero replacement preserves the complete rectangular background; character placements use background removal. A running injector reapplies changed image bytes automatically.
 
 ## 7. Tune Background Removal
 
@@ -96,7 +98,7 @@ Placement can be `sidebar`, `composer`, or `both`. A running injector reapplies 
 
 ## 8. Customize the Generated Project
 
-Edit `theme/config.json` to change colors, image width, and opacity. Edit `theme/theme.css` to change the grid, border radius, shadows, sidebar, and composer. A running injector detects those file changes.
+Edit `theme/config.json` to change colors, image width/opacity, Hero title/subtitle, brand copy, Hero alignment, and task-wallpaper opacity. Edit `theme/theme.css` to change the Hero, card grid, border radius, shadows, sidebar, and composer. A running injector detects those file changes.
 
 ## 9. Toggle and Remove
 

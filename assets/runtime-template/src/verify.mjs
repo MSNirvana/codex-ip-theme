@@ -47,6 +47,10 @@ for (const target of targets) {
         };
       };
       const layer = document.getElementById('codex-ip-runtime-layer');
+      const home = Boolean(document.querySelector('[data-testid="home-icon"]') || document.querySelector('[data-feature="game-source"]'));
+      const heroFrame = document.querySelector('.ip-theme-home > div:first-child > div:first-child > div:first-child');
+      const suggestionButtons = [...document.querySelectorAll('[class*="home-suggestions"] button')]
+        .filter((button) => box(button)?.visible);
       const report = {
         installed: document.documentElement.dataset.codexIpTheme === 'on',
         stylePresent: Boolean(document.getElementById('codex-ip-runtime-theme')),
@@ -56,9 +60,18 @@ for (const target of targets) {
         composer: box(document.querySelector('.composer-surface-chrome')),
         sidebarImage: box(document.querySelector('.ip-sidebar-character')),
         composerImage: box(document.querySelector('.ip-composer-character')),
+        home,
+        homeClassPresent: Boolean(document.querySelector('.ip-theme-home')),
+        hero: box(heroFrame),
+        heroCopy: box(document.querySelector('.ip-home-hero-copy')),
+        nativeSuggestionCount: suggestionButtons.length,
+        projectSelector: box(document.querySelector('[class*="project-selector"], [data-composer-navigation-target="workspace-project"]')),
         horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
       };
-      report.pass = report.installed && report.stylePresent && report.layerPresent &&
+      const homePass = !home || (report.homeClassPresent && report.hero?.visible && report.hero.width >= 280 &&
+        report.hero.height >= 280 && report.heroCopy?.visible && report.nativeSuggestionCount >= 2 &&
+        report.nativeSuggestionCount <= 6 && report.projectSelector?.visible);
+      report.pass = report.installed && report.stylePresent && report.layerPresent && homePass &&
         report.layerPointerEvents === 'none' && report.sidebar?.visible && report.composer?.visible &&
         report.sidebarImage?.visible && report.composerImage?.visible && !report.horizontalOverflow;
       return report;
