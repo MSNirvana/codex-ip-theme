@@ -1,0 +1,187 @@
+html[data-codex-ip-theme="on"] {
+  color-scheme: light !important;
+  --codex-base-accent: var(--ip-accent) !important;
+  --color-text-accent: var(--ip-accent) !important;
+  --color-accent-red: var(--ip-accent) !important;
+  --color-background-accent: color-mix(in srgb, var(--ip-accent) 11%, white) !important;
+  --color-background-accent-hover: color-mix(in srgb, var(--ip-accent) 16%, white) !important;
+  --color-token-main-surface-primary: var(--ip-background) !important;
+  --color-token-side-bar-background: var(--ip-sidebar) !important;
+  --color-token-input-background: #ffffff !important;
+  --color-token-foreground: var(--ip-foreground) !important;
+  --color-token-text-primary: var(--ip-foreground) !important;
+  --color-token-text-secondary: color-mix(in srgb, var(--ip-foreground) 68%, transparent) !important;
+  --color-token-text-tertiary: color-mix(in srgb, var(--ip-foreground) 48%, transparent) !important;
+  --color-token-border-default: color-mix(in srgb, var(--ip-foreground) 13%, transparent) !important;
+  --color-token-list-hover-background: color-mix(in srgb, var(--ip-accent) 7.5%, transparent) !important;
+  --color-token-list-active-selection-background: color-mix(in srgb, var(--ip-accent) 11%, transparent) !important;
+  --color-token-button-background: var(--ip-foreground) !important;
+  --color-token-button-foreground: #ffffff !important;
+  --radius-token-row: 10px !important;
+}
+
+html[data-codex-ip-theme="on"],
+html[data-codex-ip-theme="on"] body,
+html[data-codex-ip-theme="on"] button,
+html[data-codex-ip-theme="on"] input,
+html[data-codex-ip-theme="on"] textarea,
+html[data-codex-ip-theme="on"] [contenteditable="true"] {
+  font-family: "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif !important;
+}
+
+html[data-codex-ip-theme="on"] body,
+html[data-codex-ip-theme="on"] main.main-surface {
+  background-color: var(--ip-background) !important;
+}
+
+html[data-codex-ip-theme="on"] main.main-surface {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ip-foreground) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ip-foreground) 2.5%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 86% 13%, color-mix(in srgb, var(--ip-accent) 7%, transparent), transparent 24%) !important;
+  background-size: 28px 28px, 28px 28px, auto !important;
+}
+
+html[data-codex-ip-theme="on"] aside.app-shell-left-panel {
+  background: linear-gradient(180deg, rgba(255,255,255,.72), color-mix(in srgb, var(--ip-sidebar) 96%, transparent)), var(--ip-sidebar) !important;
+  border-right: 1px solid color-mix(in srgb, var(--ip-foreground) 13%, transparent) !important;
+  box-shadow: 12px 0 30px color-mix(in srgb, var(--ip-foreground) 3.5%, transparent) !important;
+}
+
+html[data-codex-ip-theme="on"] aside.app-shell-left-panel nav::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 74px;
+  width: 2px;
+  height: 42px;
+  background: var(--ip-accent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--ip-accent) 50%, transparent);
+  pointer-events: none;
+}
+
+html[data-codex-ip-theme="on"] header.app-header-tint {
+  background: color-mix(in srgb, var(--ip-background) 80%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--ip-foreground) 9%, transparent) !important;
+  backdrop-filter: blur(18px) saturate(115%) !important;
+}
+
+html[data-codex-ip-theme="on"] header.app-header-tint::after {
+  content: "";
+  position: absolute;
+  left: var(--ip-sidebar-width, 275px);
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--ip-accent), transparent 60%);
+}
+
+html[data-codex-ip-theme="on"] .composer-surface-chrome {
+  border: 1px solid color-mix(in srgb, var(--ip-foreground) 82%, transparent) !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,.94) !important;
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--ip-foreground) 9%, transparent) !important;
+  overflow: visible !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease !important;
+}
+
+html[data-codex-ip-theme="on"] .composer-surface-chrome:focus-within {
+  border-color: var(--ip-accent) !important;
+  box-shadow: 0 14px 38px color-mix(in srgb, var(--ip-foreground) 10%, transparent), 0 0 0 3px color-mix(in srgb, var(--ip-accent) 10%, transparent) !important;
+}
+
+html[data-codex-ip-theme="on"] .composer-surface-chrome::after {
+  content: "∞";
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  color: var(--ip-accent);
+  font-family: Georgia, serif !important;
+  font-size: 17px;
+  line-height: 1;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--ip-accent) 75%, transparent);
+  pointer-events: none;
+}
+
+html[data-codex-ip-theme="on"] .ProseMirror { caret-color: var(--ip-accent) !important; }
+html[data-codex-ip-theme="on"] a { color: var(--ip-accent) !important; }
+html[data-codex-ip-theme="on"] button:focus-visible,
+html[data-codex-ip-theme="on"] [role="button"]:focus-visible { outline-color: var(--ip-accent) !important; }
+html[data-codex-ip-theme="on"] ::selection { background: color-mix(in srgb, var(--ip-accent) 20%, transparent) !important; }
+
+#codex-ip-runtime-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 24;
+  pointer-events: none;
+}
+
+#codex-ip-runtime-layer .ip-mode-badge {
+  position: absolute;
+  top: 51px;
+  left: calc(var(--ip-sidebar-width, 275px) + 22px);
+  padding: 5px 10px 5px 30px;
+  border: 1px solid color-mix(in srgb, var(--ip-foreground) 14%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ip-background) 88%, transparent);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--ip-foreground) 6%, transparent);
+  color: color-mix(in srgb, var(--ip-foreground) 62%, transparent);
+  font-size: 11px;
+  letter-spacing: .08em;
+  backdrop-filter: blur(12px);
+}
+
+#codex-ip-runtime-layer .ip-mode-badge::before {
+  content: "∞";
+  position: absolute;
+  left: 8px;
+  top: 3px;
+  color: var(--ip-accent);
+  font-family: Georgia, serif;
+  font-size: 18px;
+  text-shadow: 0 0 8px color-mix(in srgb, var(--ip-accent) 80%, transparent);
+}
+
+#codex-ip-runtime-layer .ip-system-note {
+  position: absolute;
+  top: 55px;
+  right: 28px;
+  color: color-mix(in srgb, var(--ip-foreground) 40%, transparent);
+  font-size: 10px;
+  letter-spacing: .16em;
+}
+
+.ip-sidebar-character {
+  position: absolute;
+  right: 5px;
+  bottom: 56px;
+  z-index: 5;
+  width: var(--ip-sidebar-image-width);
+  height: auto;
+  opacity: var(--ip-sidebar-image-opacity);
+  pointer-events: none;
+  user-select: none;
+}
+
+.ip-composer-character {
+  position: absolute;
+  right: 28px;
+  top: calc(-1 * var(--ip-composer-image-width) * .76);
+  z-index: -1;
+  width: var(--ip-composer-image-width);
+  height: auto;
+  opacity: var(--ip-composer-image-opacity);
+  pointer-events: none;
+  user-select: none;
+}
+
+html[data-codex-ip-theme="off"] #codex-ip-runtime-layer,
+html[data-codex-ip-theme="off"] .ip-sidebar-character,
+html[data-codex-ip-theme="off"] .ip-composer-character { display: none !important; }
+
+@media (max-width: 900px) {
+  #codex-ip-runtime-layer .ip-mode-badge,
+  #codex-ip-runtime-layer .ip-system-note,
+  .ip-sidebar-character,
+  .ip-composer-character { display: none !important; }
+}

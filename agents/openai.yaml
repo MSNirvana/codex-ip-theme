@@ -1,0 +1,7 @@
+interface:
+  display_name: "Codex IP Theme"
+  short_description: "用动态 IP 图片生成跨平台 Codex 运行时主题与透明素材"
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+  brand_color: "#FF2823"
+  default_prompt: "使用 $codex-ip-theme 将我上传的 IP 图片制作成 Mac 和 Windows 可用的 Codex 运行时主题，并自动抠图。"

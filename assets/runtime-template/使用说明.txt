@@ -1,0 +1,20 @@
+Codex IP 运行时主题（中文）
+
+macOS：
+1. Command+Q 完全退出 Codex。
+2. 双击“启动主题.command”。
+3. 保持终端窗口运行。
+
+Windows：
+1. 完全退出 Codex。
+2. 双击“启动主题.cmd”。
+3. 保持命令窗口运行。
+
+通用：
+- Command/Ctrl+Shift+L 临时开关主题。
+- 修改 theme/config.json、theme/theme.css 或 assets 中的图片后，运行中的注入器会自动更新。
+- 调试接口只监听 127.0.0.1，不要改成 0.0.0.0。
+- 本主题不修改 Codex 安装包。
+
+详细生成、换图和排错教程请参阅 Skill 仓库：
+https://github.com/MSNirvana/codex-ip-theme

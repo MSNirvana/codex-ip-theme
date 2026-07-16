@@ -1,0 +1,20 @@
+Codex IP Runtime Theme (English)
+
+macOS:
+1. Quit Codex completely with Command+Q.
+2. Double-click "启动主题.command".
+3. Keep the Terminal window running.
+
+Windows:
+1. Quit Codex completely.
+2. Double-click "启动主题.cmd".
+3. Keep the command window running.
+
+Common controls:
+- Press Command/Ctrl+Shift+L to toggle the theme temporarily.
+- Changes to theme/config.json, theme/theme.css, or assets are detected automatically.
+- The debugging endpoint is bound to 127.0.0.1. Never expose it on 0.0.0.0.
+- The theme does not modify the Codex application bundle.
+
+Full generation, image replacement, and troubleshooting guide:
+https://github.com/MSNirvana/codex-ip-theme

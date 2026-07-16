@@ -1,0 +1,13 @@
+{
+  "name": "codex-ip-runtime-theme",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "inject": "node src/injector.mjs",
+    "remove": "node src/injector.mjs --remove --once"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
