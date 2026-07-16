@@ -1,11 +1,11 @@
 ---
 name: codex-ip-theme
-description: Create, update, and validate non-destructive Codex/ChatGPT desktop runtime themes for macOS and Windows from user-provided IP, mascot, character, or brand images. Use when a user asks to skin or restyle the Codex desktop app, turn an uploaded image into a reusable Codex theme, remove a white or solid image background, generate transparent PNG theme assets, support dynamically replaceable theme images, or package Mac and Windows launchers without modifying app.asar.
+description: Create, update, and validate non-destructive, interactive Codex/ChatGPT desktop runtime themes for macOS and Windows from user-provided IP, mascot, character, brand, or landscape Hero images. Use when a user asks to skin or restyle Codex, turn uploaded artwork into a reusable flagship home and task theme, remove white or solid image backgrounds, preserve a full scene as a Hero, keep native controls interactive, replace theme images dynamically, or package Mac and Windows launchers without modifying app.asar.
 ---
 
 # Codex IP Theme
 
-Generate a self-contained runtime theme project that injects CSS and transparent IP artwork through a localhost-only Electron debugging connection. Never modify the installed application bundle.
+Turn the user's visual identity into an interactive Codex workspace, not a static mockup. Generate a self-contained runtime project that combines transparent character assets, an optional full-scene Hero, native-control styling, platform launchers, and verification through a localhost-only Electron debugging connection. Never modify the installed application bundle.
 
 ## Inputs
 

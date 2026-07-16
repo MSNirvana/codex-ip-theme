@@ -1,56 +1,73 @@
-# Codex IP Theme
+<p align="center">
+  <a href="README.md">简体中文</a> · <strong>English</strong>
+</p>
 
-[简体中文](README.md) · English
+<p align="center">
+  <img src="assets/icon.svg" width="88" alt="Codex IP Theme">
+</p>
 
-Turn an uploaded mascot, character, logo, or brand image into a reusable runtime theme for the Codex desktop app on macOS and Windows.
+<h1 align="center">Codex IP Theme</h1>
 
-Codex IP Theme removes simple white or solid backgrounds, generates transparent PNG assets, turns a landscape scene into a full native-home Hero, restyles the real suggestion cards, and scaffolds platform launchers. It injects through a loopback-only Chrome DevTools Protocol connection and does **not** modify `app.asar`, the official application bundle, signatures, authentication, API keys, or model-provider settings.
+<p align="center">
+  <strong>Turn your IP into a Codex workstation that actually works.</strong><br>
+  Upload character and scene artwork; let Codex handle cutouts, the home Hero, native-control styling, cross-platform launchers, and verification screenshots.
+</p>
 
-> Community project. Not an official OpenAI product.
+<p align="center">
+  <code>macOS</code> · <code>Windows</code> · <code>Native controls</code> · <code>Live image updates</code> · <code>No app.asar edits</code>
+</p>
 
-## Showcase: Tu Xing Ren Flagship Theme
+<p align="center">
+  <a href="#build-your-theme-in-three-steps"><strong>Get started</strong></a> ·
+  <a href="docs/showcase/tu-xing-ren.en.md">Full case study</a> ·
+  <a href="docs/tutorial.en.md">Operation guide</a>
+</p>
 
-A character sheet and a 16:9 GGOO scene were turned into a complete branded Codex workstation. The screenshot below comes from the real Codex desktop renderer, not a static mockup.
+> Community project, not an official OpenAI product. Themes use a loopback-only runtime injection and do not modify the Codex installation, signatures, authentication, API keys, or model-provider settings.
+
+## See It First
+
+This is not a concept render or a fake screenshot covering the window. It is the Tu Xing Ren flagship theme running inside the real Codex desktop renderer.
 
 ![Tu Xing Ren flagship home](docs/assets/showcase/tu-xing-ren-home.png)
 
-| Goal | Result |
-|---|---|
-| Branded home | The landscape scene becomes a 650px Hero with readable copy |
-| Native interaction | Four suggestion cards, project selection, composer, and navigation remain live |
-| IP recognition | Red infinity eyes, black/white/red palette, sidebar and composer character placements |
-| Task readability | The same scene becomes a restrained task wallpaper without obscuring content |
-| Responsive behavior | Verified at 1180, 900, and 640px with no horizontal overflow |
+Native suggestions, project selection, the composer, and navigation remain interactive. The same identity continues into populated task routes.
 
-[Open the full case study, task screenshot, and implementation notes](docs/showcase/tu-xing-ren.en.md)
+<details>
+<summary><strong>Expand the task-route screenshot</strong></summary>
 
-## Features
+![Tu Xing Ren task route](docs/assets/showcase/tu-xing-ren-task.png)
 
-- One Skill for macOS and Windows.
-- One uploaded image is enough; colors and placement are optional.
-- An optional landscape scene enables the flagship Hero; without one, the prepared character is reused.
-- Native suggestion buttons, project selection, composer, sidebar, and navigation stay live—no fake full-window screenshot.
-- Task routes receive a restrained matching wallpaper while code and messages remain readable.
-- Edge-connected white-background removal preserves enclosed white body regions.
-- Separate sidebar and composer poses are supported.
-- Live image, CSS, and configuration hot reload.
-- Official Codex renderer-marker checks before injection.
-- Loopback WebSocket validation and image/configuration safety checks.
-- macOS verification of the official app and its bundled signed Node runtime.
-- Windows Store package discovery through `Get-AppxPackage OpenAI.Codex`.
-- Generated verify, screenshot, reload, toggle, and restore entries.
+</details>
 
-## Install the Skill
+## What the Skill Does for You
+
+| You provide | The Skill handles | You receive |
+|---|---|---|
+| One character image | Pose selection, cropping, white/solid background removal | Transparent sidebar and composer characters |
+| Optional landscape scene | Full-background preservation, copy mask, home composition | A branded flagship Hero workstation |
+| One theme request | Palette, copy, layout, and responsive rules | Editable config and CSS |
+| No manual app-path hunting | Platform launcher generation and checks | macOS `.command` + Windows `.cmd` |
+| A real Codex renderer | Home, task, reload, and overflow checks | Verification report and screenshots |
+
+One character image is enough to begin. Add a landscape scene to unlock the complete flagship home.
+
+## Build Your Theme in Three Steps
+
+### 1. Install the Skill
 
 Ask Codex:
 
 ```text
-Install the skill from https://github.com/MSNirvana/codex-ip-theme
+Install the Skill from https://github.com/MSNirvana/codex-ip-theme.
 ```
 
-Or clone it manually.
+Restart Codex or open a new task after installation.
 
-macOS/Linux:
+<details>
+<summary>Manual installation</summary>
+
+macOS / Linux:
 
 ```bash
 git clone https://github.com/MSNirvana/codex-ip-theme.git ~/.codex/skills/codex-ip-theme
@@ -62,64 +79,114 @@ Windows PowerShell:
 git clone https://github.com/MSNirvana/codex-ip-theme.git "$HOME\.codex\skills\codex-ip-theme"
 ```
 
-Restart Codex or open a new task after installation.
+</details>
 
-## Quick Start
+### 2. Attach Artwork and Describe the Result
 
-Attach an image and prompt:
-
-```text
-Use $codex-ip-theme to turn the attached IP image into a Codex theme for macOS and Windows. Remove the white background automatically.
-```
-
-Only the character image is required. Optional inputs include a landscape Hero scene, home title/subtitle, theme name, accent/background/sidebar/text colors, crop coordinates, placements, and output directory.
-
-Recommended flagship prompt:
+With one character image:
 
 ```text
-Use $codex-ip-theme. The first image is a character sheet: select and cut out one complete pose. Use the second landscape image as the home Hero and preserve its background. Generate a flagship macOS and Windows theme, then verify native home cards, project selection, the composer, and task-page readability.
+Use $codex-ip-theme to turn this character image into a macOS and Windows Codex theme. Remove the white background automatically and generate verification screenshots.
 ```
 
-The Skill generates a standalone theme project. Quit Codex completely, then run:
-
-- macOS: double-click `启动主题.command`.
-- Windows: double-click `启动主题.cmd`.
-- Temporary toggle: `Command/Ctrl + Shift + L`.
-- Validation: double-click `验证主题.command` or `验证主题.cmd`.
-- Removal: double-click `移除主题.command` or `移除主题.cmd`.
-
-## Dynamic Images
-
-Upload a replacement image and ask:
+With a character sheet and a landscape scene:
 
 ```text
-Use $codex-ip-theme to replace the home Hero in my generated theme with this landscape image while preserving its background.
+Use $codex-ip-theme. Select and cut out one complete pose from the first character sheet. Preserve the second landscape image as the home Hero. Generate a flagship macOS and Windows theme, then verify native suggestions, project selection, the composer, task readability, and responsive behavior.
 ```
 
-Replace `sidebar`, `composer`, `both`, `hero`, or `all`. While the injector is running, changes to all image bytes, `theme/config.json`, or `theme/theme.css` are reapplied in about two seconds.
+Theme name, accent, copy, and placements are optional. The Skill can derive a complete first pass from the artwork.
+
+### 3. Launch the Theme
+
+Save your work and quit Codex completely:
+
+| Platform | Launch | Keep running |
+|---|---|---|
+| macOS | Double-click `启动主题.command` | Terminal window |
+| Windows | Double-click `启动主题.cmd` | Command window |
+
+The theme is active when the launcher prints `[injected]`. Press `Command/Ctrl + Shift + L` to toggle between the original and themed appearance.
+
+## More Than a Color Swap
+
+- **Native interaction stays intact:** suggestions, project selection, composer, sidebar, and navigation come from the real Codex DOM.
+- **Character and scene art use separate pipelines:** characters become transparent PNGs; landscape Heroes keep their complete backgrounds.
+- **Home and task routes have different priorities:** strong identity on home, restrained atmosphere where code and messages must stay readable.
+- **Artwork can change live:** character assets, Hero, config, and CSS reapply in about two seconds.
+- **The result is reusable:** the Skill generates a standalone project, not a one-off mockup.
+- **Verification goes beyond an injection log:** native controls, route transitions, reload persistence, responsive widths, and overflow are checked.
+
+## Case Study: Tu Xing Ren Flagship Workstation
+
+The case combines a character sheet and a 16:9 GGOO scene:
+
+| Design goal | Verified result |
+|---|---|
+| Branded home | Landscape scene becomes a 650px Hero with readable copy |
+| IP recognition | Red infinity eyes, black/white/red palette, linked sidebar/composer characters |
+| Native interaction | Four suggestions, project selection, composer, and navigation remain usable |
+| Task readability | Same scene appears at `0.12` opacity without obscuring content |
+| Responsive behavior | No horizontal overflow at 1180, 900, or 640px |
+| Reload persistence | Theme restores automatically after renderer reload |
+
+[Open the complete case study and implementation notes →](docs/showcase/tu-xing-ren.en.md)
+
+## Generated Project
+
+```text
+your-theme/
+├── assets/
+│   ├── ip-sidebar.png
+│   ├── ip-composer.png
+│   └── ip-hero.png
+├── theme/
+│   ├── config.json
+│   └── theme.css
+├── 启动主题.command / .cmd
+├── 验证主题.command / .cmd
+├── 移除主题.command / .cmd
+└── ip-transparency-preview.png
+```
+
+Nothing is written into `app.asar`, and the official application is not re-signed.
+
+## Replace Artwork Dynamically
+
+Attach a new image and ask:
+
+```text
+Use $codex-ip-theme to replace the home Hero in this generated theme while keeping its existing colors and character placements.
+```
+
+Replace `sidebar`, `composer`, `both`, `hero`, or `all` without repackaging Codex.
 
 ## Documentation
 
+- [English operation guide](docs/tutorial.en.md)
 - [Tu Xing Ren flagship case study](docs/showcase/tu-xing-ren.en.md)
-- [English operation tutorial](docs/tutorial.en.md)
-- [中文操作教程](docs/tutorial.zh-CN.md)
+- [Troubleshooting](references/troubleshooting.md)
 - [Security policy](SECURITY.md)
 - [Contributing](CONTRIBUTING.md)
+- [中文 README](README.md)
 
-## Requirements and Limitations
+## Compatibility and Boundaries
 
-- Official Codex/ChatGPT desktop app with bundle identifier `com.openai.codex` on macOS, or the OpenAI Codex desktop package/installer on Windows.
-- Image generation uses Python with Pillow and NumPy. Codex desktop workspace runtimes normally provide them.
-- Deterministic background removal is designed for solid or near-solid edge-connected backgrounds. Complex photographic backgrounds require a separate local segmentation or image-editing capability.
+- macOS: official Codex/ChatGPT desktop app with bundle identifier `com.openai.codex`.
+- Windows: OpenAI Codex desktop installer or Store package; scripts discover the installed path.
+- Default cutout works best on white, gray, and near-solid backgrounds; complex photography needs a separate segmentation tool.
 - Major Codex UI updates may require selector maintenance.
-- Windows scripts are generated and statically checked; validate them on the specific Windows installation being used.
-
-## Security
-
-The theme endpoint is intentionally restricted to `127.0.0.1`. CDP is locally privileged while active, so run the theme only on a trusted machine and never change the bind address to `0.0.0.0`. See [SECURITY.md](SECURITY.md).
+- Windows scripts pass static checks but should still be verified on the target machine.
+- CDP binds only to `127.0.0.1`; never expose it through `0.0.0.0`.
 
 ## License and Credits
 
-Code is released under the [MIT License](LICENSE). Original user-provided artwork is not included. The case screenshots are shown only to demonstrate the Skill; Tu Xing Ren/GGOO visual assets visible in them are excluded from the MIT grant. See [NOTICE.md](NOTICE.md).
+Code is released under the [MIT License](LICENSE). Original user artwork is not included. Tu Xing Ren/GGOO visuals visible in case screenshots are excluded from the MIT grant; see [NOTICE.md](NOTICE.md).
 
-The runtime architecture was benchmarked against the MIT-licensed [Fei-Away/Codex-Dream-Skin](https://github.com/Fei-Away/Codex-Dream-Skin). See [NOTICE.md](NOTICE.md).
+The runtime architecture was benchmarked against the MIT-licensed [Fei-Away/Codex-Dream-Skin](https://github.com/Fei-Away/Codex-Dream-Skin). Theme generation, image preparation, flagship Hero composition, live replacement, verification, and cross-platform project scaffolding are implemented independently in this project.
+
+---
+
+<p align="center">
+  <strong>Do not leave your IP inside a single image. Turn it into the Codex workspace you use every day.</strong>
+</p>

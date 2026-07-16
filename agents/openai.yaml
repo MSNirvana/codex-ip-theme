@@ -1,7 +1,7 @@
 interface:
   display_name: "Codex IP Theme"
-  short_description: "用角色与场景图生成跨平台 Codex 旗舰运行时主题"
+  short_description: "上传角色与场景图，生成可交互的跨平台 Codex 主题"
   icon_small: "./assets/icon.svg"
   icon_large: "./assets/icon.svg"
   brand_color: "#FF2823"
-  default_prompt: "使用 $codex-ip-theme 将我上传的角色图自动抠图，并用横版场景图生成 Mac 和 Windows 可用的旗舰 Codex 运行时主题。"
+  default_prompt: "使用 $codex-ip-theme，把我上传的角色图做成可交互的 Codex 主题；如果还有横版场景图，把它用作首页 Hero，并生成 Mac/Windows 启动器和验证截图。"
