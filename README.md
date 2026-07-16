@@ -1,108 +1,125 @@
 # Codex IP Theme
 
-[简体中文](README.zh-CN.md) · English
+简体中文 · [English](README.en.md)
 
-Turn an uploaded mascot, character, logo, or brand image into a reusable runtime theme for the Codex desktop app on macOS and Windows.
+把用户上传的 IP、角色、吉祥物、Logo 或品牌图片，制作成 macOS 和 Windows 都能使用的 Codex 桌面端运行时主题。
 
-Codex IP Theme removes simple white or solid backgrounds, generates transparent PNG assets, turns a landscape scene into a full native-home Hero, restyles the real suggestion cards, and scaffolds platform launchers. It injects through a loopback-only Chrome DevTools Protocol connection and does **not** modify `app.asar`, the official application bundle, signatures, authentication, API keys, or model-provider settings.
+Codex IP Theme 可以自动处理简单白底/纯色背景、生成透明 PNG、把横版场景图变成完整首页 Hero、重排原生建议卡片，并创建跨平台启动器。它通过仅监听本机回环地址的 CDP 注入主题，**不会**修改 `app.asar`、官方应用包、代码签名、登录状态、API Key 或模型供应商配置。
 
-> Community project. Not an official OpenAI product.
+> 社区项目，不是 OpenAI 官方产品。
 
-## Features
+## 案例展示：凸星人旗舰主题
 
-- One Skill for macOS and Windows.
-- One uploaded image is enough; colors and placement are optional.
-- An optional landscape scene enables the flagship Hero; without one, the prepared character is reused.
-- Native suggestion buttons, project selection, composer, sidebar, and navigation stay live—no fake full-window screenshot.
-- Task routes receive a restrained matching wallpaper while code and messages remain readable.
-- Edge-connected white-background removal preserves enclosed white body regions.
-- Separate sidebar and composer poses are supported.
-- Live image, CSS, and configuration hot reload.
-- Official Codex renderer-marker checks before injection.
-- Loopback WebSocket validation and image/configuration safety checks.
-- macOS verification of the official app and its bundled signed Node runtime.
-- Windows Store package discovery through `Get-AppxPackage OpenAI.Codex`.
-- Generated verify, screenshot, reload, toggle, and restore entries.
+使用一张角色设定图和一张 16:9 GGOO 场景图，生成具有完整品牌识别的 Codex 工作台。下面是运行在真实 Codex 桌面端中的效果，不是静态界面稿。
 
-## Install the Skill
+![凸星人旗舰主题首页](docs/assets/showcase/tu-xing-ren-home.png)
 
-Ask Codex:
+| 目标 | 实现结果 |
+|---|---|
+| 首页品牌化 | 横版场景成为 650px Hero，左侧文案保持清晰 |
+| 原生交互 | 4 张建议卡、项目选择器、输入框和导航仍可操作 |
+| IP 识别 | 红色无限眼、黑白红配色、侧栏与输入框角色联动 |
+| 任务可读性 | 同一场景以低透明度进入任务页，不干扰正文和代码 |
+| 跨尺寸适配 | 实测 1180、900、640px，无横向溢出 |
+
+[查看完整案例、任务页截图与设计拆解](docs/showcase/tu-xing-ren.zh-CN.md)
+
+## 功能
+
+- 一个 Skill 同时生成 macOS 和 Windows 主题。
+- 只上传一张图片即可使用，颜色和位置均为可选项。
+- 可额外上传一张横版主题图，生成旗舰级首页 Hero；不上传时会复用透明角色图。
+- 保留真实的原生建议按钮、项目选择器、输入框、侧栏和导航交互，不使用假界面截图。
+- 任务页自动使用低透明度同主题壁纸，兼顾品牌感和正文可读性。
+- 边缘连通白底抠图，可保留黑色轮廓内部的白色身体区域。
+- 侧栏和输入框可以使用不同角色动作。
+- 图片、CSS 和配置文件实时热更新。
+- 注入前识别真实 Codex 侧栏、主区域和输入框。
+- 限制回环 WebSocket，并校验图片路径、大小和颜色配置。
+- macOS 校验官方应用及其自带 Node.js 的代码签名。
+- Windows 使用 `Get-AppxPackage OpenAI.Codex` 动态发现 Store 版。
+- 自动生成验证、截图、reload、临时开关和移除入口。
+
+## 安装 Skill
+
+直接对 Codex 说：
 
 ```text
-Install the skill from https://github.com/MSNirvana/codex-ip-theme
+请从 https://github.com/MSNirvana/codex-ip-theme 安装这个 Skill。
 ```
 
-Or clone it manually.
+也可以手动安装。
 
-macOS/Linux:
+macOS/Linux：
 
 ```bash
 git clone https://github.com/MSNirvana/codex-ip-theme.git ~/.codex/skills/codex-ip-theme
 ```
 
-Windows PowerShell:
+Windows PowerShell：
 
 ```powershell
 git clone https://github.com/MSNirvana/codex-ip-theme.git "$HOME\.codex\skills\codex-ip-theme"
 ```
 
-Restart Codex or open a new task after installation.
+安装后重新打开 Codex，或者新建一个任务。
 
-## Quick Start
+## 快速使用
 
-Attach an image and prompt:
-
-```text
-Use $codex-ip-theme to turn the attached IP image into a Codex theme for macOS and Windows. Remove the white background automatically.
-```
-
-Only the character image is required. Optional inputs include a landscape Hero scene, home title/subtitle, theme name, accent/background/sidebar/text colors, crop coordinates, placements, and output directory.
-
-Recommended flagship prompt:
+上传图片后输入：
 
 ```text
-Use $codex-ip-theme. The first image is a character sheet: select and cut out one complete pose. Use the second landscape image as the home Hero and preserve its background. Generate a flagship macOS and Windows theme, then verify native home cards, project selection, the composer, and task-page readability.
+使用 $codex-ip-theme，把我上传的 IP 图片制作成 Mac 和 Windows 都能使用的 Codex 主题，并自动抠掉白底。
 ```
 
-The Skill generates a standalone theme project. Quit Codex completely, then run:
+必填内容只有角色图片。可选内容包括横版 Hero 场景图、首页标题/副标题、主题名称、强调色、背景色、侧栏色、文字色、裁切范围、角色位置和输出目录。
 
-- macOS: double-click `启动主题.command`.
-- Windows: double-click `启动主题.cmd`.
-- Temporary toggle: `Command/Ctrl + Shift + L`.
-- Validation: double-click `验证主题.command` or `验证主题.cmd`.
-- Removal: double-click `移除主题.command` or `移除主题.cmd`.
-
-## Dynamic Images
-
-Upload a replacement image and ask:
+推荐的旗舰版提示词：
 
 ```text
-Use $codex-ip-theme to replace the home Hero in my generated theme with this landscape image while preserving its background.
+使用 $codex-ip-theme。第一张图是角色设定，请自动选择并抠出一个完整动作；第二张横版图作为首页 Hero，保留它的背景。生成 Mac 和 Windows 都能使用的旗舰主题，并验证首页原生卡片、项目选择器、输入框和任务页可读性。
 ```
 
-Replace `sidebar`, `composer`, `both`, `hero`, or `all`. While the injector is running, changes to all image bytes, `theme/config.json`, or `theme/theme.css` are reapplied in about two seconds.
+Skill 会生成一个独立主题项目。完全退出 Codex 后运行：
 
-## Documentation
+- macOS：双击 `启动主题.command`。
+- Windows：双击 `启动主题.cmd`。
+- 临时开关主题：`Command/Ctrl + Shift + L`。
+- 验证和截图：双击 `验证主题.command` 或 `验证主题.cmd`。
+- 移除主题：双击 `移除主题.command` 或 `移除主题.cmd`。
 
-- [English operation tutorial](docs/tutorial.en.md)
-- [中文操作教程](docs/tutorial.zh-CN.md)
-- [Security policy](SECURITY.md)
-- [Contributing](CONTRIBUTING.md)
+## 动态换图
 
-## Requirements and Limitations
+上传新图片后可以说：
 
-- Official Codex/ChatGPT desktop app with bundle identifier `com.openai.codex` on macOS, or the OpenAI Codex desktop package/installer on Windows.
-- Image generation uses Python with Pillow and NumPy. Codex desktop workspace runtimes normally provide them.
-- Deterministic background removal is designed for solid or near-solid edge-connected backgrounds. Complex photographic backgrounds require a separate local segmentation or image-editing capability.
-- Major Codex UI updates may require selector maintenance.
-- Windows scripts are generated and statically checked; validate them on the specific Windows installation being used.
+```text
+使用 $codex-ip-theme，把我已经生成的主题中首页 Hero 替换为这张横版图片，保留完整背景。
+```
 
-## Security
+可替换 `sidebar`、`composer`、`both`、`hero` 或 `all`。注入器运行时会监听三类图片、`theme/config.json` 和 `theme/theme.css`。文件变化后约两秒内重新应用，无需修改或重新打包 Codex。
 
-The theme endpoint is intentionally restricted to `127.0.0.1`. CDP is locally privileged while active, so run the theme only on a trusted machine and never change the bind address to `0.0.0.0`. See [SECURITY.md](SECURITY.md).
+## 文档
 
-## License and Credits
+- [凸星人旗舰主题完整案例](docs/showcase/tu-xing-ren.zh-CN.md)
+- [中文完整操作教程](docs/tutorial.zh-CN.md)
+- [English tutorial](docs/tutorial.en.md)
+- [安全说明](SECURITY.md)
+- [参与贡献](CONTRIBUTING.md)
 
-Code is released under the [MIT License](LICENSE). User-provided artwork remains under its original owner's license and is not included in this repository.
+## 要求和限制
 
-The runtime architecture was benchmarked against the MIT-licensed [Fei-Away/Codex-Dream-Skin](https://github.com/Fei-Away/Codex-Dream-Skin). See [NOTICE.md](NOTICE.md).
+- macOS 需要 bundle identifier 为 `com.openai.codex` 的官方 Codex/ChatGPT 桌面端；Windows 需要 OpenAI Codex 桌面安装包或 Store 版。
+- 图片处理依赖 Python、Pillow 和 NumPy，Codex 桌面端工作区运行时通常已经提供。
+- 默认抠图适合白色、灰色或其他近似纯色背景。复杂摄影背景需要额外的本地分割或图片编辑能力。
+- Codex 大版本更新后，可能需要维护页面选择器。
+- Windows 脚本已生成并完成静态检查，但仍应在具体 Windows 环境实机验证。
+
+## 安全
+
+调试端口只绑定 `127.0.0.1`。CDP 开启期间具有较高的本机控制能力，只应在可信设备上使用，绝对不要把监听地址改为 `0.0.0.0`。详见 [SECURITY.md](SECURITY.md)。
+
+## 许可证与致谢
+
+代码使用 [MIT License](LICENSE)。用户上传的原始图片仍归原权利人所有，本仓库不包含凸星人原始素材。案例截图仅用于展示 Skill 的实际效果，其中出现的凸星人/GGOO 视觉资产不随 MIT 许可证再授权，详见 [NOTICE.md](NOTICE.md)。
+
+运行时架构参考并对标了 MIT 许可的 [Fei-Away/Codex-Dream-Skin](https://github.com/Fei-Away/Codex-Dream-Skin)，详见 [NOTICE.md](NOTICE.md)。

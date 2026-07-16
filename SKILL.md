@@ -22,6 +22,7 @@ Require only one image. A second rectangular scene image unlocks the flagship He
 
 Read `references/user-options.md` only when the user requests advanced colors, placement, cropping, or repeated image updates. Read `references/troubleshooting.md` only when launch or injection fails.
 Read `references/upstream-notes.md` only when maintaining the runtime engine or comparing behavior with Codex Dream Skin.
+Read `references/flagship-patterns.md` when modifying the runtime template, building a custom Hero composition, debugging route/layout overlap, or validating responsive behavior beyond the generated defaults.
 
 ## Workflow
 
@@ -32,8 +33,10 @@ Read `references/upstream-notes.md` only when maintaining the runtime engine or 
 5. Inspect `ip-transparency-preview.png`. Reject heavy halos, missing white body regions, clipped limbs, or an opaque border. Adjust `--tolerance`, `--feather`, or crop and rerun with `--force`.
 6. Validate generated JavaScript with `node --check`, macOS scripts with `bash -n`, and generated file presence. Do not claim Windows execution was tested unless it ran on Windows.
 7. Run the generated verify entry. Require a real sidebar, composer, both character placements, `pointer-events: none`, and no horizontal overflow. On the home route also require a visible Hero, native suggestion buttons, real project selector, and live composer. When practical, test injection in a separate Codex instance with a temporary user-data directory and a non-default debugging port. Do not quit or mutate the user's live instance merely for validation.
-8. Inspect both a home screenshot and a normal task screenshot. The home screenshot must read as an authored IP workspace; the task wallpaper must remain restrained enough for code and messages to stay legible.
-9. Deliver the generated project, transparency preview, verification screenshots/report, and concise platform launch instructions.
+8. Inspect both a home screenshot and a normal task screenshot. Compare computed element bounds when cards, project selection, or the composer appear close; native negative margins can create visual overlap even when all elements report visible.
+9. Test route transitions in both directions and reload persistence. Ensure the shell never retains both home and task route classes.
+10. Check at least one wide and one narrow viewport. The home layout may expose 2–6 native cards depending on Codex responsive behavior, but it must not create horizontal overflow.
+11. Deliver the generated project, transparency preview, verification screenshots/report, and concise platform launch instructions.
 
 ## Create a Theme
 
@@ -80,11 +83,13 @@ Choose `sidebar`, `composer`, `both`, `hero`, or `all`. Character placements use
 ## Flagship Visual Rules
 
 - Build around the real Codex DOM. Never replace the window with a screenshot or block native controls.
+- Keep transparent character preparation and rectangular Hero preparation as separate pipelines.
 - Use the Hero image inside the real home route; keep native suggestion buttons, project selection, composer, sidebar, and navigation interactive.
 - Put readable copy over the visually quiet side of the Hero. Add a strong gradient when the image competes with text.
 - Keep decorative layers and injected images at `pointer-events: none`.
 - Give task routes only a low-opacity wallpaper treatment; do not reduce message, code, diff, or composer contrast.
 - Add responsive layouts for wide, medium, and narrow windows. At narrow widths, reduce or hide nonessential decorations before compressing live controls.
+- Use route-class toggles, semantic selector fallbacks, and computed-box inspection; visibility alone is not enough to prove a usable composition.
 
 ## Background Removal Rules
 
